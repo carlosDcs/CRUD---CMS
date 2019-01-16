@@ -1,0 +1,76 @@
+#header {
+    width: 99%;
+    height: 125px;
+    background-color: #252729;
+    color: aliceblue;
+    position: fixed;
+    top: 0px;
+    left: 8px;
+    z-index: 1;
+}
+
+.columna {
+    width: 10%;
+    height: 30px;
+    float: left;
+    margin-top: 40px;
+    text-align: center; 
+}
+
+.columna:hover {
+    background-color: yellow;
+}
+
+.logo {
+    width: 22%;
+    float: left;
+    margin-left: 20px;
+
+}
+
+.letra {
+    width: 10%;
+    float: right;
+    margin-top: 15px;
+    margin-right: 20px;
+}
+
+#content {
+    position: absolute;
+    top: 145px;
+    width: 90%;
+    align-content: center;
+    margin-left: 85px;
+}
+
+
+#footer {
+    position: absolute;
+    width: 99%;
+    height: 250px;
+    background-color: #252729;
+    color: aliceblue;
+    top: 1130px;
+}
+
+.pie {
+    float: left;
+    margin-top: 50px;
+    border-style: solid;
+    border-left: none;
+    border-right: none;
+    margin-left: 100px;
+    margin-right: 100px;
+    border-width: 1px;
+}
+
+.pie2 {
+    float: left;
+    margin-top: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+p {
+    margin: 0px;
+}

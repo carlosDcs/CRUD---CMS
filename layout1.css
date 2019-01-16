@@ -1,0 +1,71 @@
+.header {
+    background-color: #343A40;
+}
+
+.botones {
+    margin-top: 35px;
+}
+
+.body {
+    background-color: #E3F2FD;
+}
+
+.address {
+    margin-bottom: 0px;
+}
+
+.tittle {
+    margin-bottom: 20px;
+    border-style: inherit;
+    border-left: none;
+    border-right: none;
+    border-width: 1px;
+
+}
+
+.footer {
+    background-color: #252729;
+    color: aliceblue;
+}
+
+.fondo {
+    background: url(imagenes/pesas.jpg);
+    background-position: 50%;
+    background-size: 100% 100%;
+    margin-top: 4px;
+    height: 550px;
+    background-attachment: fixed;
+}
+
+.header2 {
+    background-color: #343A40;
+    margin-top: 5px;
+}
+
+form {
+    background-color: #EEEEEE;
+    border-radius: 10%;
+    margin-top: 50px;
+}
+
+.form1 {
+    background-color: beige;
+    width: 70%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.opa {
+    opacity: 0,5;
+}
+
+.registrado {
+    width: 40%;
+    float: left;
+}
+
+.form {
+    background-color: #EEEEEE;
+    border-radius: 10%;
+    margin-top: 50px;
+}
