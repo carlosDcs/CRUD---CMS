@@ -41,8 +41,8 @@
           <div class="col-8 botones">
                   <nav class="navbar navbar-dark bg-dark">
                       <a class="navbar-brand" href="frontpage-bootstrap.html">INICIO</a>
-                      <a class="navbar-brand" href="contactos.php">ÁREA CLIENTE</a>
-                      <a class="navbar-brand" href="contactos.php">CONTACTO</a>
+                      <a class="navbar-brand" href="areacliente.php">ÁREA CLIENTE</a>
+                      <a class="navbar-brand" href="contacto.php">CONTACTO</a>
                   </nav>
           </div>
           <div class="col-2">
@@ -51,30 +51,74 @@
         </div>
 
 
-        <div class="row fondo">
+        <div class="row fondo mb-1">
 
           <div class="col-4">
           </div>
 
-          <div class="col-4 opa">
+          <div class="col-4 opa mt-5">
 
-            <?php if (!isset($_POST["Nom"])) : ?>
-              <form method="post">
-                <fieldset>
-                  <center>
-                  <legend>RELLENE EL FORMULARIO : </legend>
-                  <input class="form1" type="text" name="Nom" placeholder="NOMBRE" required><br>
-                  <input class="form1" type="text" name="Ape" placeholder="APELLIDOS" required><br>
-                  <input class="form1" type="email" name="cor" placeholder="CORREO" required><br>
-                  <input class="form1" type="text" name="Dir" placeholder="DIRECCIÓN" required><br>
-                  <input class="form1" type="password" name="pass" placeholder="CONTRASEÑA" required><br>
-                  <input class="form1" type="password" name="pass1" placeholder="REPITE LA CONTRASEÑA" required><br>
-                  <input class="send" type="submit" name="REGISTRATE" required><br>
+          <div class="panel panel-default">
+        		<div class="panel-heading">
+			    		<h3 class="panel-title" style="margin-top: 50px;">Bienvenido a Fitness gym <small>Registrese!</small></h3>
+			 			</div>
+			 			<div class="panel-body">
 
-                  </center>
-                </fieldset>
-              </form>
+            <?php if (!isset($_POST["nom"])) : ?>
+			    		<form method="post">
+			    			<div class="row">
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			                <input type="text" name="nom" class="form-control input-sm" placeholder="First Name" required>
+			    					</div>
+			    				</div>
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			    						<input type="text" name="ape" class="form-control input-sm" placeholder="Last Name" required>
+			    					</div>
+			    				</div>
+			    			</div>
 
+                <div class="form-group">
+			    				<input type="date" name="fecha" class="form-control input-sm" placeholder="Fecha nacimiento" required>
+			    			</div>
+
+                <div class="form-group">
+			    				<input type="text" name="dir" class="form-control input-sm" placeholder="Direccion" required>
+			    			</div>
+
+			    			<div class="form-group">
+			    				<input type="email" name="cor" id="email" class="form-control input-sm" placeholder="Email Address" required>
+			    			</div>
+
+                <div class="form-group">
+			    				<input type="number" name="numero" class="form-control input-sm" placeholder="Numero de contacto" required>
+			    			</div>
+
+			    			<div class="row">
+
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			    						<input type="password" name="pass" class="form-control input-sm" placeholder="Password" required>
+			    					</div>
+			    				</div>
+
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			    						<input type="password" name="passconfirmation" class="form-control input-sm" placeholder="Confirm Password" required>
+			    					</div>
+                  
+                  </div>
+                </div>
+
+                  <div class="form-footer">
+                    <center>
+                      <input type="submit" value="Register" width="50%" class="btn btn-info">
+                    </center>
+				    			</div>
+
+
+			    		</form>
               <!-- DATA IN $_POST['mail']. Coming from a form submit -->
               <?php else: ?>
 
@@ -88,20 +132,21 @@
                     exit();
                     }
 
-                    if($_POST['pass']==$_POST['pass1']) {
+                    if($_POST['pass']==$_POST['passconfirmation']) {
 
-                      $query="INSERT INTO usuarios(nombre,apellidos,correo,direccion,claveacceso) 
-                      VALUES ('".$_POST['Nom']."','".$_POST['Ape']."','".$_POST['cor']."',
-                              '".$_POST['Dir']."','".$_POST['pass']."')";
+                      $query="INSERT INTO usuarios(nombre,apellidos,fecha,direccion,correo,numero,claveacceso) 
+                      VALUES ('".$_POST['nom']."','".$_POST['ape']."','".$_POST['fecha']."',
+                              '".$_POST['dir']."','".$_POST['cor']."','".$_POST['numero']."', md5('".$_POST['pass']."')) ";
+                    
               
                       if ($result = $connection->query($query)) {
                           
                         echo "<form>";
                           echo "<div class='form'>";
                             echo "<center>";;
-                              echo "<p>El usuario ".$_POST['Nom']." ".$_POST['Ape']." <br> 
+                              echo "<p>El usuario ".$_POST['nom']." ".$_POST['ape']." <br> 
                                     fue registrado con éxito</p>";
-                                    //<img src='imagenes/registro.png' width='20%'>
+                                    echo "<img src='imagenes/adduser.png' width='60%'>" ;
                             echo "</center>";
                           echo "</div>";
                         echo "</form>";
@@ -120,42 +165,20 @@
                     }
                                      
                 ?>                  
-              <?php endif ?>       
-              </div>
+              <?php endif ?>   
+
+			    	</div>
+	    		</div>
+
+        </div>
 
               <div class="col-4">
               </div>
 
             </div>
 
-            <div class="row footer">
-                <div class="col-3" style="margin-top: 20px">
-                    <p class="tittle">REDES SOCIALES</p>
-                    <ul>
-                        <li><a href="">Facebook</a></li>
-                        <li><a href="">Instagram</a></li>
-                        <li><a href="">Twitter</a></li>
-                    </ul>
-                </div>
-                <div class="col-3" style="margin-top: 20px">
-                    <p class="tittle">FITNESS GYM</p>
-                    <p class="address">C/Salvador Dali</p>
-                    <p class="address">41015</p>
-                    <p class="address">C/Salvador Dali</p>
-                </div>
-                <div class="col-3" style="margin-top: 20px">
-                    <p class="tittle">HORARIO</p>
-                    <p class="address">L-V : 7:00 / 21:00</p>
-                    <p class="address">S : 8:00 / 20:00</p>
-                    <p class="address">D: 7:00 / 15:00</p>
-                </div>
-                <div class="col-3" style="margin-top: 20px">
-                    <p class="tittle">POLÍTICAS</p>
-                    <p class="address">Política de cookies</p>
-                    <p class="address">Política de privacidad</p>
-                    <p class="address">Información legal</p>
-                </div>
-            </div>
+        <?php    include ("includes/footer.php"); ?>
+
       </div>
 
     </body>

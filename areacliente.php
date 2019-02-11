@@ -20,29 +20,77 @@
                 } 
               </style>
 
-   <div class="container">
+  <div class="container">
        
-    <div class="row header">
+    <?php    include ("includes/cabecera-sinlogin.php"); ?>
 
-        <div class="col-2" >
-            <img src="imagenes/finalogo2.png" width="100%">
-        </div>
-        <div class="col-8 botones">
-                <nav class="navbar navbar-dark bg-dark">
-                        <a class="navbar-brand" href="areacliente.php">ÁREA CLIENTE</a>
-                        <a class="navbar-brand" href="contactos.php">CONTACTOS</a>
-                        <a class="navbar-brand" href="monitores.php">MONITORES</a>
-                        <a class="navbar-brand" href="comentarios.php">COMENTARIOS</a>
-                        <a class="navbar-brand" href="contactos.php">CONTACTOS</a>
-                      </nav>
-        </div>
-        <div class="col-2">
-            <img src="imagenes/letralogo2.png" width="100%" style="margin-top: 25px">
-        </div>
-    </div>
+    <div class="row justify-content-center login">
+      <div class="col-4">
+        <?php if (!isset($_POST["cor"])) : ?>
+            <center>
+            <div class="card border-dark ">
+                <div class="card-body text-dark">
+                    <img src="imagenes/logo-login.png" width="90px">
+                <form method="post" id="form1">
+                    <input type="email" name="cor" placeholder="CORREO" required><br>
+                    <input type="password" name="pass" placeholder="CONTRASEÑA" required><br>
+                </div>
+                <div class="card-footer">
+                    <input class="btn btn-info" type="submit" placeholder="ACCEDER" required><br>
+                </div>
+              </form>
+              </center>
+            </div>
 
+              <!-- DATA IN $_POST['mail']. Coming from a form submit -->
+        <?php else: ?>
 
-   </div>
+            <?php
+
+            session_start();
+
+                    
+                $connection = new mysqli("localhost", "root", "Admin2015", "Proyecto_Impla");
+                $connection->set_charset("uft8");
+
+                if ($connection->connect_errno) {
+                    printf("Connection failed: %s\n", $connection->connect_error);
+                exit();
+                }
+
+                $query="SELECT codusuario, correo, claveacceso, tipo FROM usuarios WHERE correo like '%".$_POST["cor"]."'";
+
+                if ($result = $connection->query($query)) {
+
+                    if($result->num_rows==0) {
+                        echo "ERROR";
+                    }
+                    else {
+                        while($obj = $result->fetch_object()) {
+
+                            $passwd=$obj->claveacceso;
+                            $tipo=$obj->tipo;
+                            
+                            $_SESSION['cod']=$obj->codusuario;
+                            $_SESSION['tipo']=$tipo;
+                        }
+                        if($passwd == $_POST['pass']) {
+                            header("Location: datoscliente.php");
+
+                            if($tipo=='admin') {
+                                header("Location: areaadmin.php"); 
+                            }
+                        }
+                    }
+                }
+                            
+            ?>                  
+        <?php endif ?>  
+      </div>
+
+    <?php    include ("includes/footer.php"); ?>
+
+  </div>
 
   </body>
 </html>

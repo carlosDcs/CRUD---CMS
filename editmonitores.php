@@ -22,7 +22,7 @@
 
     <div class="container">
 
-        <?php  include ("includes/cabecera-sinlogin.php"); ?>
+        <?php  include ("includes/cabera-admin.php"); ?>
 
         <div class="row headercontacto">
             <div class="col-5" style="text-align: center">
@@ -33,8 +33,10 @@
             </div>
         </div>
 
-
+            
             <?php
+
+            session_start();
 
             $connection = new mysqli("localhost", "root", "Admin2015", "Proyecto_Impla");
             $connection->set_charset("uft8");
@@ -44,7 +46,13 @@
             exit();
             }
 
-            $query="SELECT * FROM monitores";
+            ?>
+
+            <?php if (!isset($_POST['nombre'])) : ?>
+
+            <?php
+
+            $query="SELECT * FROM monitores WHERE codmonitor = '".$_GET['cod']."'";
 
             if ($result = $connection->query($query)) {
 
@@ -57,25 +65,48 @@
                     $cod = $obj->codmonitor;
 
                     echo "<div class='row justify-content-center mt-5 mb-5'>";
+
+                        echo "<div class='col-3'>";
+                            echo "<img class='rounded-circle img-fluid mt-2' src='imagenes/$cod.png'>";
+                        echo "</div>";
+
+                        echo "<form method='post'>";
+                            echo "<div class='col-7'>";
+                                echo "<div class='row'>";
+                                    echo "<div class='col-6'>";
+                                        echo "<input class='form-control' type='text' name='nombre' value='$obj->nombre' required>";
+                                    echo "</div>";
+                                    echo "<div class='col-6'>";
+                                        echo "<input class='form-control' type='text' name='apellidos' value='$obj->apellidos' >";
+                                    echo "</div>";
+                                echo "</div>"; 
+
+                                echo "<input class='form-control' type='text' name='puesto' value='$obj->puesto' >";
+                                echo "<textarea class='form-control' type='text' name='informacion' rows='8' col='10'>$obj->informacion</textarea>";
+                                    
+                            echo "</div>";
                     
-                    echo "<div class='col-3'>";
-                      echo "<img class='rounded-circle img-fluid mt-2' src='imagenes/$cod.png'>";
-                    echo "</div>";
-                    echo "<div class='col-7'>";
-                    echo "<h4>".$obj->nombre." ".$obj->apellidos."</h4>";
-                    echo "<blockquote class='blockquote'>";
-                    echo "<p>".$obj->puesto."</p>"; 
-                    echo "</blockquote>";
-                    echo "<p>".$obj->informacion."</p>"; 
-                    echo "</div>";
+                        echo "<div class='col-2'>";
+                            echo "<a href='editmonitores.php?cod=$cod' class='btn btn-primary'>Editar</a>";
+                        echo "</div>"; 
 
+                        
+                        echo "</form>";
                     echo "</div>";
+                    }  
+                }   
+            }                       
+            ?>     
 
-                  }  
-              }   
-          }                       
-      ?>     
+      <?php else: ?>
+      
+      <?php 
+    echo "<h1>HOLAAAA</h1>";
+    var_dump($_POST);
 
+      ?>
+
+      <?php endif ?>
 
         <?php  include ("includes/footer.php"); ?>
 

@@ -33,7 +33,7 @@
     background-position: 50%;
     background-size: 100% 100%;
     margin-top: 4px;
-    height: 550px;
+    height: 700px;
     background-attachment: fixed;
 }
 
@@ -43,7 +43,6 @@
 }
 
 form {
-    background-color: #EEEEEE;
     border-radius: 10%;
     margin-top: 50px;
 }
@@ -55,8 +54,14 @@ form {
     margin-bottom: 10px;
 }
 
+#form1 > input {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
 .opa {
     opacity: 0,5;
+    background-color: white;
 }
 
 .registrado {
@@ -65,7 +70,104 @@ form {
 }
 
 .form {
+    border-radius: 10%;
+    margin-top: 30px;
+}
+
+.dias {
+    background-color: #262729;
+    color: #7AADD8;
+    text-align: center;
+}
+
+.clases {
+    background-color: #AFCDE5;
+    text-align: center;
+    padding-bottom: 25px;
+    padding-top: 15px;
+}
+
+table {
+    border: 1.5px solid white;
+    border-collapse: collapse;
+    margin-bottom: 50px;
+    width: 100%;
+    height: 500px;
+    font-size: 80%;
+}
+
+td {
+    border: 1.5px solid white;
+    border-collapse: collapse;
+    margin-bottom: 50px;
+}
+
+.headerhorario {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.contenido {
+    margin-bottom: 100px;
+}
+
+.login {
+    background: url(imagenes/arecliente.jpg);
+    background-size: 100% 100%;
+    margin-top: 4px;
+    padding-top: 100px;
+    margin-bottom: 4px;
+    height: 700px;
+    background-attachment: fixed;
+}
+
+.logininto {
+    height: 100px;
+}
+
+.form2 {
     background-color: #EEEEEE;
     border-radius: 10%;
-    margin-top: 50px;
+    margin-top: 20px;
 }
+
+.headercontacto {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: white;
+}
+
+.contacto {
+    background: url(imagenes/pectoral2.jpg);
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    height: 800px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.coments {
+    margin-top: 15px;
+    opacity: 0.5;
+    margin-bottom: 15px;
+}
+
+.loginin {
+    background: url(imagenes/areacli.png);
+    height: 700px;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+.borde {
+    width: 100%;
+}
+
+.headercont {
+    color: #36A0FF;
+    font-size: 40px;
+    text-align: left;
+}
+

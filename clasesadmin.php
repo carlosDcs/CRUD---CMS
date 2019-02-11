@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="layout1.css">
-    <link rel="stylesheet" type="text/css" href="layoutwtf.css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -21,9 +20,9 @@
         } 
       </style>
 
-  <div class="container">
+   <div class="container">
        
-   <?php    include ("includes/cabecera-sinlogin.php"); ?>
+      <?php    include ("includes/cabera-admin.php"); ?>
 
     <div class="row headerhorario">
       <div class="col-2"></div>
@@ -50,8 +49,8 @@
           </tr>
           <tr class="clases">
             <th>9:00</th>
-            <td>PILATES</td>
-            <td>T-REX</td>
+            <td col='2'>PILATES</td>
+            <td></td>
             <td></td>
             <td>BODYTONIC</td>
             <td>TAICHI</td>
@@ -140,26 +139,11 @@
           </tr>
         </table>
       </div>
-      
-      <div class="col-3">
-        <div class="wrapper fadeInDown">
-          <div id="formContent">
-            <!-- Tabs Titles -->
-
-            <!-- Login Form -->
-            <form>
-              <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-              <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-              <input type="submit" class="fadeIn fourth" value="Log In">
-            </form>
-
-          </div>
-        </div>
-      </div>
     </div>
-    <?php    include ("includes/footer.php"); ?>
 
-  </div>
+        <?php    include ("includes/footer.php"); ?>
+
+   </div>
 
   </body>
 </html>
