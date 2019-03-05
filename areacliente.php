@@ -74,7 +74,7 @@
                             $_SESSION['cod']=$obj->codusuario;
                             $_SESSION['tipo']=$tipo;
                         }
-                        if($passwd == $_POST['pass']) {
+                        if($passwd == md5($_POST['pass'])) {
                             header("Location: datoscliente.php");
 
                             if($tipo=='admin') {

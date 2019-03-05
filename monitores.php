@@ -55,11 +55,12 @@
                   while($obj = $result->fetch_object()) {
 
                     $cod = $obj->codmonitor;
+                    $fotofile = $obj->fotofile;
 
                     echo "<div class='row justify-content-center mt-5 mb-5'>";
                     
                     echo "<div class='col-3'>";
-                      echo "<img class='rounded-circle img-fluid mt-2' src='imagenes/$cod.png'>";
+                      echo "<img class='rounded-circle img-fluid mt-2' src='$fotofile'>";
                     echo "</div>";
                     echo "<div class='col-7'>";
                     echo "<h4>".$obj->nombre." ".$obj->apellidos."</h4>";

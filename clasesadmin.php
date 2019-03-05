@@ -1,3 +1,23 @@
+<?php
+
+      session_start();
+      if($_SESSION['tipo'] != 'admin' ) {
+        session_destroy();
+        header("Location: datoscliente.php");
+      }
+
+
+                $connection = new mysqli("localhost", "root", "Admin2015", "Proyecto_Impla");
+                $connection->set_charset("uft8");
+
+                if ($connection->connect_errno) {
+                    printf("Connection failed: %s\n", $connection->connect_error);
+                exit();
+                }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,11 +40,11 @@
         } 
       </style>
 
-   <div class="container">
+  <div class="container">
        
-      <?php    include ("includes/cabera-admin.php"); ?>
+   <?php    include ("includes/cabera-admin.php"); ?>
 
-    <div class="row headerhorario">
+    <div class="row headerhorario mt-5 mb-5">
       <div class="col-2"></div>
       <div class="col-6">
         <h6>HORARIO DE NUESTRAS ACTIVIDADES</h6>
@@ -34,116 +54,135 @@
 
 
     <div class="row contenido">
-      <div class="col-1">
-      </div>
+     
       <div class="col-7">
-        <table>
-          <tr class="dias">
-            <th></th>
+
+        <table class="table table-stripped">
+          <tr class="thead-dark">
+            <th>HORA</th>
             <th>LUNES</th>
             <th>MARTES</th>
             <th>MIERCOLES</th>
             <th>JUEVES</th>
             <th>VIERNES</th>
-            <th>SABADO</th>
           </tr>
-          <tr class="clases">
-            <th>9:00</th>
-            <td col='2'>PILATES</td>
-            <td></td>
-            <td></td>
-            <td>BODYTONIC</td>
-            <td>TAICHI</td>
-            <td></td>
-          </tr>
-          <tr class="clases">
-            <th>10:00</th>
-            <td>RUNNING</td>
-            <td></td>
-            <td>T-REX</td>
-            <td>BODYTONIC</td>
-            <td>T-REX</td>
-            <td></td>
-          </tr>
-          <tr class="clases">
-            <th>11:00</th>
-            <td>PILATES</td>
-            <td>T-REX</td>
-            <td></td>
-            <td>BODYTONIC</td>
-            <td>TAICHI</td>
-            <td>RUNNING</td>
-          </tr>
-          <tr class="clases">
-            <th>12:00</th>
-            <td>RUNNING</td>
-            <td></td>
-            <td>T-REX</td>
-            <td>BODYTONIC</td>
-            <td>T-REX</td>
-            <td></td>
-          </tr>
-          <tr class="clases">
-            <th>13:00</th>
-            <td>PILATES</td>
-            <td>T-REX</td>
-            <td></td>
-            <td>BODYTONIC</td>
-            <td>TAICHI</td>
-            <td>RUNNING</td>
-          </tr>
-          <tr class="clases">
-            <th>16:00</th>
-            <td>PILATES</td>
-            <td>T-REX</td>
-            <td></td>
-            <td>BODYTONIC</td>
-            <td>TAICHI</td>
-            <td></td>
-          </tr>
-          <tr class="clases">
-            <th>17:00</th>
-            <td>PILATES</td>
-            <td>T-REX</td>
-            <td></td>
-            <td>BODYTONIC</td>
-            <td>TAICHI</td>
-            <td>RUNNING</td>
-          </tr>
-          <tr class="clases">
-            <th>18:00</th>
-            <td>PILATES</td>
-            <td>T-REX</td>
-            <td></td>
-            <td>BODYTONIC</td>
-            <td>TAICHI</td>
-            <td>RUNNING</td>
-          </tr>
-          <tr class="clases">
-            <th>19:00</th>
-            <td>RUNNING</td>
-            <td></td>
-            <td>T-REX</td>
-            <td>BODYTONIC</td>
-            <td>T-REX</td>
-            <td></td>
-          </tr>
-          <tr class="clases">
-            <th>20:00</th>
-            <td>RUNNING</td>
-            <td></td>
-            <td>T-REX</td>
-            <td>BODYTONIC</td>
-            <td>T-REX</td>
-            <td></td>
-          </tr>
-        </table>
+
+      <?php 
+
+        $query="SELECT * FROM clases where horainicio = '09:00:00' order by dia"; 
+
+          if ($result = $connection->query($query)) {
+
+            echo "<tr class='clases'>";
+            echo "<td>09:00</td>";
+
+            while($obj = $result->fetch_object()) {
+
+              $actividad=$obj->actividad;
+              $id = $obj->codclase;            
+              
+              echo  "<td><a href='editclases.php?cod=".$id."'>$actividad</a></td>";
+                                                          
+            }
+            echo "</tr>"; 
+        }                          
+      ?>
+          <?php 
+
+          $query="SELECT * FROM clases where horainicio = '10:00:00' order by dia"; 
+
+            if ($result = $connection->query($query)) {
+
+              echo "<tr class='clases'>";
+              echo "<td>10:00</td>";
+
+              while($obj = $result->fetch_object()) {
+
+                
+                $actividad=$obj->actividad; 
+                $id = $obj->codclase;          
+                
+                echo  "<td><a href='editclases.php?cod=".$id."'>$actividad</a></td>";
+                                              
+              }
+              echo "</tr>"; 
+          }                          
+          ?>
+                <?php 
+
+          $query="SELECT * FROM clases where horainicio = '11:00:00' order by dia"; 
+
+            if ($result = $connection->query($query)) {
+
+              echo "<tr class='clases'>";
+              echo "<td>11:00</td>";
+
+              while($obj = $result->fetch_object()) {
+
+                $actividad=$obj->actividad;   
+                
+                $id = $obj->codclase;            
+              
+                echo  "<td><a href='editclases.php?cod=".$id."'>$actividad</a></td>";
+                                                              
+              }
+              echo "</tr>"; 
+          }                          
+          ?>
+                <?php 
+
+          $query="SELECT * FROM clases where horainicio = '12:00:00' order by dia"; 
+
+            if ($result = $connection->query($query)) {
+
+              echo "<tr class='clases'>";
+              echo "<td>12:00</td>";
+
+              while($obj = $result->fetch_object()) {
+
+                $actividad=$obj->actividad;            
+                
+                $id = $obj->codclase;            
+              
+                echo  "<td><a href='editclases.php?cod=".$id."'>$actividad</a></td>";
+            
+                                              
+              }
+              echo "</tr>"; 
+          }                          
+          ?>
+                <?php 
+
+          $query="SELECT * FROM clases where horainicio = '13:00:00' order by dia"; 
+
+            if ($result = $connection->query($query)) {
+
+              echo "<tr class='clases'>";
+              echo "<td>13:00</td>";
+
+              while($obj = $result->fetch_object()) {
+
+                $actividad=$obj->actividad;            
+                
+                $id = $obj->codclase;            
+              
+                echo  "<td><a href='editclases.php?cod=".$id."'>$actividad</a></td>";
+                                              
+              }
+              echo "</tr>"; 
+          }                          
+          ?>
+
+       </table>
+      </div>    
+      
       </div>
-    </div>
 
-        <?php    include ("includes/footer.php"); ?>
 
-   </div>
+
+    <?php    include ("includes/footer.php"); ?>
+
+  </div>
 
   </body>
 </html>

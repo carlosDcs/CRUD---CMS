@@ -31,7 +31,7 @@
         <div class="row">
           <div class="col-12">
 
-            <table class="table mt-3">
+            <table class="table mt-4">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">Cod. Usuario</th>
@@ -42,6 +42,7 @@
                 <th scope="col">Numero</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
               </tr>
             </thead>
             <tbody>
@@ -81,7 +82,8 @@
                     echo "<td>".$obj->direccion."</td>";
                     echo "<td>".$obj->numero."</td>";
                     echo "<td>".$obj->fecha."</td>";
-                    echo "<td><a href='datosclienteadmin.php?cod=$obj->codusuario'><img src='imagenes/edit.png' width='20%' ></a></td>";
+                    echo "<td><a href='datosclienteadmin.php?cod=$obj->codusuario'><img src='imagenes/edit.png' width='40%'></a></td>";
+                    echo "<td><a href='deleteusuario.php?cod=$obj->codusuario'><img src='imagenes/rubbish.png' width='50%'></a></td>";
                     echo "</tr>";
 
                   }

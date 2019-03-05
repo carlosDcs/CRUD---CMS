@@ -1,107 +1,22 @@
 <?php
 
 session_start();
+if($_SESSION['tipo'] != 'admin' ) {
+  session_destroy();
+  header("Location: datoscliente.php");
+}
+
 
 $connection = new mysqli("localhost", "root", "Admin2015", "Proyecto_Impla");
 $connection->set_charset("uft8");
 
-
-/*
-
-
-<?php if (!isset($_POST["sel"])) : ?>
-
-    <?php
-                             
-        $query="select * from Mensajes where CodMen=".$_GET['cod'];
-
-            if ($result = $connection->query($query)) {
-
-                while($obj = $result->fetch_object()) {
-                    
-                    $cm=$obj->CodMen;
-                    
-                }
-            }
-        ?>
-
-            <form method="post">
-
-            <fieldset>
-                <center>
-                <legend>ELIMINAR MENSAJE  : </legend>
-            
-                ¿ESTÁ SEGURO DE QUE QUIERE ELIMINAR EL MENSAJE? : 
-                
-                <select name="sel">
-                    <option>si</option>
-                    <option>no</option>
-                </select>
-                <br><br>
-                <p><input type="submit" value="Enviar"></p></center>
-            </fieldset>
-            
-            </form>
-
-            <!-- DATA IN $_POST['mail']. Coming from a form submit -->
-            <?php else:  ?>
-
-            <?php 
-            
-            $connection = new mysqli("localhost", "tf", "123456", "proyecto");
-            $connection->set_charset("uft8");
-            //TESTING IF THE CONNECTION WAS RIGHTNombre
-            if ($connection->connect_errno) {
-            printf("Connection failed: %s\n", $connection->connect_error);
-            exit();
-            }
-            if ($_POST['sel']=='si') {
-            $query="Delete from Mensajes where CodMen='".$_GET['cod']."';";
-            if ($result = $connection->query($query)) {
-            echo "MENSAJE ELIMINADO";
-            echo "<button type='button' class='btn btn-PRIMARY lista btn-lg'>
-                <a href='mensajes.php'>VOLVER A MIS MENSAJES</a>
-            </button>";    
-            echo $query;
-            }
-            } else {
-                echo "<button type='button' class='btn btn-PRIMARY lista btn-lg'>
-                <a href='mensajes.php'>VOLVER A MIS MENSAJES</a>
-            </button>";  
-            }
-            ?>
-
-            <?php endif ?>
-
-
-
-
-
-
-*/
 
 if ($connection->connect_errno) {
     printf("Connection failed: %s\n", $connection->connect_error);
 exit();
 }
 
-$query="SELECT u.nombre as nombre, u.apellidos as apellidos, u.correo as correo, m.asunto as asunto, m.contenido as contenido
-        FROM mensajes m JOIN usuarios u 
-        ON m.codusuario = u.codusuario";
-    
-
-        if ($result = $connection->query($query)) {
-
-            while($obj = $result->fetch_object()) {
-
-                    $nombre = $obj->nombre;
-                    $apellidos = $obj->apellidos;
-                    $correo = $obj->correo;
-                    $asunto = $obj->asunto;
-                    $contenido = $obj->contenido;
-
-            }  
-        }                        
+  
 ?>     
 
 <!DOCTYPE html>
@@ -150,46 +65,62 @@ $query="SELECT u.nombre as nombre, u.apellidos as apellidos, u.correo as correo,
 
         <div class="row coments">
 
-        
+            <?php
 
-            <div class="col-1"></div>
+            $query="SELECT u.codusuario as codusuario, u.nombre as nombre, u.apellidos as apellidos, u.correo as correo, u.fotofile as fotofile, m.codmensaje as codmensaje, m.asunto as asunto, m.contenido as contenido, m.fecha as fecha
+            FROM mensajes m JOIN usuarios u 
+            ON m.codusuario = u.codusuario
+            ORDER BY m.fecha DESC";
+            
 
-            <form>
-        
-            <div class="col-8 media ml-5 mb-5 mt-5">
 
-                <img class="rounded-circle avatar mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" alt="Avatar">
-                
-                <div class="media-body">
-                    <h5 class="mt-0 font-weight-bold "><?php echo $nombre." "; echo $apellidos; ?></h5>
+            if ($result = $connection->query($query)) {
+
+                while($obj = $result->fetch_object()) {
+
+                    $nombre = $obj->nombre;
+                    $apellidos = $obj->apellidos;
+                    $correo = $obj->correo;
+                    $asunto = $obj->asunto;
+                    $contenido = $obj->contenido;
+                    $fecha = $obj->fecha; 
+                    $fotofile = $obj->fotofile;
+                    $codmensaje = $obj->codmensaje;
+                    $codusuario = $obj->codusuario;
+
+      
+                    echo "<div class='col-12 media mt-5'>";
+
+                       
+
+                        echo "<div class='col-3'>";
+                            echo "<img class='img-fluid d-flex rounded-circle avatar ml-4 mb-2 mr-3' src='$fotofile' alt='Avatar'>";
+                            echo "<a href='deleteusuario.php?codusuario=$codusuario' class='mt-3 mb-3 btn btn-danger'>Eliminar Usuario</a>";
+                        echo "</div>";
+
+                        echo "<div class='col-7'>";
+                            echo "<h5 class='font-weight '>".$nombre." ".$apellidos."</h5>";
+                            echo "<br>";
+                            echo "Asunto: $asunto";
+                            echo "<br>";
+                            echo "Mensaje: $contenido";
+                        echo "</div>";
+
+                        
+                        echo "<div class='col-2'>";     
+                            echo "<a href='deletecomentario.php?codmensaje=$codmensaje' class='btn btn-primary' style='float: right'>Eliminar Comentario</a>";
+                        echo "</div>";
+
+                    echo "</div>";
                     
-                    <?php echo $asunto; ?>
-                    <?php echo $contenido; ?>
+                       
 
-                    <div class="media mt-3">
-                    <img class="rounded-circle avatar mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg" alt="Generic placeholder image">
-                    
-                    <div class="media-body">
+                }  
+            }  
 
-                        <h5 class="mt-0 font-weight-bold">Administrador: </h5>
-                        <div class="form-group basic-textarea rounded-corners">
-                            <textarea width="100%" class="form-control" rows="3" col="20" placeholder="Write your comment..."></textarea>
-                        </div>
-                    </div>
+            ?> 
 
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-2 media ml-5 mb-5 mt-5">
-                <div class='col-6'>
-                
-                </div>
-                <div class='col-6'>
-                <a href='deletemonitores.php?cod=$cod' class='btn' width="300%"><img src="imagenes/delcoment.png" width="200%"></a>
-                </div>
-            </div>
-        </form>
         </div>
         
         <?php    include ("includes/footer.php"); ?>

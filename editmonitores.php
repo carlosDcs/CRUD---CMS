@@ -63,15 +63,18 @@
                   while($obj = $result->fetch_object()) {
 
                     $cod = $obj->codmonitor;
+                    $fotofile = $obj->fotofile;
 
                     echo "<div class='row justify-content-center mt-5 mb-5'>";
-
+                    
                         echo "<div class='col-3'>";
-                            echo "<img class='rounded-circle img-fluid mt-2' src='imagenes/$cod.png'>";
+                            echo "<form method='post'>";
+                            echo "<img class='rounded-circle img-fluid' src='$fotofile'>";
+                            echo "<button type='submit' class='btn btn-primary mt-3 ml-5'>Actualizar</button>";
                         echo "</div>";
 
-                        echo "<form method='post'>";
-                            echo "<div class='col-7'>";
+                        echo "<div class='col-7'>";
+                            
                                 echo "<div class='row'>";
                                     echo "<div class='col-6'>";
                                         echo "<input class='form-control' type='text' name='nombre' value='$obj->nombre' required>";
@@ -81,17 +84,11 @@
                                     echo "</div>";
                                 echo "</div>"; 
 
-                                echo "<input class='form-control' type='text' name='puesto' value='$obj->puesto' >";
-                                echo "<textarea class='form-control' type='text' name='informacion' rows='8' col='10'>$obj->informacion</textarea>";
+                            echo "<input class='form-control' type='text' name='puesto' value='$obj->puesto' >";
+                            echo "<textarea class='form-control' type='text' name='informacion' rows='8' col='10'>$obj->informacion</textarea>";
                                     
-                            echo "</div>";
-                    
-                        echo "<div class='col-2'>";
-                            echo "<a href='editmonitores.php?cod=$cod' class='btn btn-primary'>Editar</a>";
-                        echo "</div>"; 
-
-                        
-                        echo "</form>";
+                            echo "</form>"; 
+                        echo "</div>";
                     echo "</div>";
                     }  
                 }   
@@ -99,10 +96,28 @@
             ?>     
 
       <?php else: ?>
+
       
       <?php 
-    echo "<h1>HOLAAAA</h1>";
-    var_dump($_POST);
+
+            $connection = new mysqli("localhost", "root", "Admin2015", "Proyecto_Impla");
+            $connection->set_charset("uft8");
+
+            $nombre = $_POST['nombre'];
+            $apellidos = $_POST['apellidos'];
+            $puesto = $_POST['puesto'];
+            $informacion = $_POST['informacion'];
+
+      
+
+            $query="UPDATE monitores SET nombre='$nombre', apellidos='$apellidos', puesto='$puesto', informacion='$informacion'
+                    WHERE codmonitor = '".$_GET['cod']."'; ";
+            echo $query;
+
+            if ($result = $connection->query($query)) {
+
+                header("Location: monitoresadmin.php");
+            }
 
       ?>
 
@@ -110,7 +125,6 @@
 
         <?php  include ("includes/footer.php"); ?>
 
-    </div>
 
 
   </body>

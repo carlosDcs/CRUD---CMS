@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,49 +22,23 @@
 
       <div class="container">
 
-        <div class="row header">
-
-          <div class="col-11">
-          </div>
-
-          <div class="col-1">
-            <img src="imagenes/es.png" width="40%">
-            <img src="imagenes/en.png" width="40%">
-          </div>
-        </div>
-
-        <div class="row header2">
-          <div class="col-2" >
-              <img src="imagenes/finalogo2.png" width="100%">
-          </div>
-          <div class="col-8 botones">
-                  <nav class="navbar navbar-dark bg-dark">
-                      <a class="navbar-brand" href="frontpage-bootstrap.html">INICIO</a>
-                      <a class="navbar-brand" href="areacliente.php">ÁREA CLIENTE</a>
-                      <a class="navbar-brand" href="contacto.php">CONTACTO</a>
-                  </nav>
-          </div>
-          <div class="col-2">
-              <img src="imagenes/letralogo2.png" width="100%" style="margin-top: 25px">
-          </div>
-        </div>
-
+        <?php    include ("includes/cabecera-sinlogin.php"); ?>
 
         <div class="row fondo mb-1">
 
           <div class="col-4">
           </div>
 
-          <div class="col-4 opa mt-5">
+          <div class="col-4 opa mt-4 mb-4">
 
           <div class="panel panel-default">
         		<div class="panel-heading">
-			    		<h3 class="panel-title" style="margin-top: 50px;">Bienvenido a Fitness gym <small>Registrese!</small></h3>
+			    		<h3 class="panel-title" style="margin-top: 50px;">Bienvenido a Fitness gym</small></h3>
 			 			</div>
 			 			<div class="panel-body">
 
             <?php if (!isset($_POST["nom"])) : ?>
-			    		<form method="post">
+			    		<form method="post" enctype="multipart/form-data">
 			    			<div class="row">
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
@@ -95,6 +68,11 @@
 			    				<input type="number" name="numero" class="form-control input-sm" placeholder="Numero de contacto" required>
 			    			</div>
 
+                <div class="form-group">
+                  <input type="file" class="form-control" name="imagen" placeholder>
+                </div>
+
+
 			    			<div class="row">
 
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
@@ -111,7 +89,7 @@
                   </div>
                 </div>
 
-                  <div class="form-footer">
+                  <div class="form-group">
                     <center>
                       <input type="submit" value="Register" width="50%" class="btn btn-info">
                     </center>
@@ -119,10 +97,18 @@
 
 
 			    		</form>
+              
               <!-- DATA IN $_POST['mail']. Coming from a form submit -->
               <?php else: ?>
 
                 <?php
+
+                    $file = $_FILES["imagen"]["tmp_name"];
+                    $location = "prueba/";
+                    $name = $_FILES["imagen"]["name"];
+
+                    if (!move_uploaded_file( $file, $location . $_FILES["imagen"]["name"])) {               
+                    };
 
                     $connection = new mysqli("localhost", "root", "Admin2015", "Proyecto_Impla");
                     $connection->set_charset("uft8");
@@ -134,16 +120,16 @@
 
                     if($_POST['pass']==$_POST['passconfirmation']) {
 
-                      $query="INSERT INTO usuarios(nombre,apellidos,fecha,direccion,correo,numero,claveacceso) 
-                      VALUES ('".$_POST['nom']."','".$_POST['ape']."','".$_POST['fecha']."',
-                              '".$_POST['dir']."','".$_POST['cor']."','".$_POST['numero']."', md5('".$_POST['pass']."')) ";
+                      $query="INSERT INTO usuarios(nombre,apellidos,fecha,correo,direccion,claveacceso,numero,fotofile) 
+                      VALUES ('".$_POST['nom']."','".$_POST['ape']."','".$_POST['fecha']."'
+                              ,'".$_POST['cor']."','".$_POST['dir']."', md5('".$_POST['pass']."'),'".$_POST['numero']."','prueba/$name') ";
                     
               
                       if ($result = $connection->query($query)) {
                           
                         echo "<form>";
                           echo "<div class='form'>";
-                            echo "<center>";;
+                            echo "<center>";
                               echo "<p>El usuario ".$_POST['nom']." ".$_POST['ape']." <br> 
                                     fue registrado con éxito</p>";
                                     echo "<img src='imagenes/adduser.png' width='60%'>" ;
@@ -156,7 +142,7 @@
                     }
                     else {
                       echo "<form>";
-                          echo "<div class='form'>";
+                          echo "<div class='form fondo'>";
                             echo "<center>";;
                               echo "Las contraseñas no coinciden <img src='imagenes/error.png' width='20%'>";
                             echo "</center>";
@@ -164,16 +150,16 @@
                         echo "</form>";
                     }
                                      
-                ?>                  
+                ?> 
+
+
               <?php endif ?>   
+
 
 			    	</div>
 	    		</div>
 
         </div>
-
-              <div class="col-4">
-              </div>
 
             </div>
 

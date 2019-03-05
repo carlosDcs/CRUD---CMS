@@ -1,3 +1,22 @@
+<?php
+
+session_start();
+
+if($_SESSION['tipo'] != 'admin' ) {
+    session_destroy();
+    header("Location: datoscliente.php");
+  }
+
+$connection = new mysqli("localhost", "root", "Admin2015", "Proyecto_Impla");
+$connection->set_charset("uft8");
+
+if ($connection->connect_errno) {
+    printf("Connection failed: %s\n", $connection->connect_error);
+exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,15 +55,6 @@
 
             <?php
 
-            session_start();
-
-            $connection = new mysqli("localhost", "root", "Admin2015", "Proyecto_Impla");
-            $connection->set_charset("uft8");
-
-            if ($connection->connect_errno) {
-                printf("Connection failed: %s\n", $connection->connect_error);
-            exit();
-            }
 
             $query="SELECT * FROM monitores";
 
@@ -57,11 +67,12 @@
                   while($obj = $result->fetch_object()) {
 
                     $cod = $obj->codmonitor;
+                    $fotofile = $obj->fotofile;
 
                     echo "<div class='row justify-content-center mt-5 mb-5'>";
                     
                     echo "<div class='col-3'>";
-                        echo "<img class='rounded-circle img-fluid mt-2' src='imagenes/$cod.png'>";
+                        echo "<img class='rounded-circle img-fluid mt-2' src='$fotofile'>";
                     echo "</div>";
                     echo "<div class='col-7'>";
                         echo "<h4>".$obj->nombre." ".$obj->apellidos."</h4>";   

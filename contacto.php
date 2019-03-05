@@ -9,24 +9,7 @@ if ($connection->connect_errno) {
     printf("Connection failed: %s\n", $connection->connect_error);
 exit();
 }
-
-$query="SELECT u.nombre as nombre, u.apellidos as apellidos, u.correo as correo, m.asunto as asunto, m.contenido as contenido
-        FROM mensajes m JOIN usuarios u 
-        ON m.codusuario = u.codusuario";
-    
-
-        if ($result = $connection->query($query)) {
-
-            while($obj = $result->fetch_object()) {
-
-                    $nombre = $obj->nombre;
-                    $apellidos = $obj->apellidos;
-                    $correo = $obj->correo;
-                    $asunto = $obj->asunto;
-                    $contenido = $obj->contenido;
-
-            }  
-        }                        
+                     
 ?>     
 
 <!DOCTYPE html>
@@ -51,73 +34,92 @@ $query="SELECT u.nombre as nombre, u.apellidos as apellidos, u.correo as correo,
                 } 
               </style>
 
-   <div class="container">
+  <div class="container">
        
    <?php    include ("includes/cabecera-sinlogin.php"); ?>
 
-    <div class="row headercontacto">
-      <div class="col-4"></div>
-      <div class="col-3">
-        <p> ¿Dónde estamos?</p>
-        <p class="address">C/Salvador Dalí, Nº15</p>
-        <p class="address">41015 , Sevilla</p>
-        <p class="address">954957411</p>
-      </div>
-      <div class="col-3">
-          <p> Nuestro horario</p>
-          <p class="address">L-V : 7:00 / 21:00</p>
-          <p class="address">S : 8:00 / 20:00</p>
-          <p class="address">D: 7:00 / 15:00</p>
-      </div>
-      <div class="col-2"></div>
-    </div>
 
-        
 
-    <div class="col-9 media ml-5 mb-5 mt-5">
+        <div class='jumbotron col-12 bg-light mt-5'>
 
-        <img class="d-flex rounded-circle avatar mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" alt="Avatar">
-        
-        <div class="media-body">
-            <h5 class="mt-0 font-weight-bold "><?php echo $nombre." "; echo $apellidos; ?></h5>
-            
-            <?php echo $asunto; ?>
-            <?php echo $contenido; ?>
+          <div class='row'>
 
-            <div class="media mt-3">
-              <img class="d-flex rounded-circle avatar mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg" alt="Generic placeholder image">
-            
-              <div class="media-body">
-
-                <h5 class="mt-0 font-weight-bold">Respuestas: </h5>
-                <div class="form-group basic-textarea rounded-corners">
-                    <textarea class="form-control" rows="3" col="10" placeholder="Write your comment..."></textarea>
-                </div>
+            <div class='col-2'>
+              <img class='img-fluid rounded-circle ml-3' src='imagenes/finalogo2.png' alt='Avatar'>
             </div>
 
+            <div class='col-9 ml-3'>
+              <h4 class='font-weight-bold '>Century Fitness</h4> 
+              <br>
+              <p> Mensaje de Bienvenida del Equipo de Century Fitness, deja aqui tus comentarios y observaciones! Muchas gracias </p>
+            </div>
+
+          </div>
         </div>
+
+
+        <?php 
+        
+        $query="SELECT u.nombre as nombre, u.apellidos as apellidos, u.correo as correo, u.fotofile as fotofile, m.asunto as asunto, m.contenido as contenido, m.fecha as fecha
+        FROM mensajes m JOIN usuarios u 
+        ON m.codusuario = u.codusuario
+        ORDER BY m.fecha DESC";
+    
+
+        if ($result = $connection->query($query)) {
+
+            while($obj = $result->fetch_object()) {
+
+                    $nombre = $obj->nombre;
+                    $apellidos = $obj->apellidos;
+                    $correo = $obj->correo;
+                    $asunto = $obj->asunto;
+                    $contenido = $obj->contenido;
+                    $fecha = $obj->fecha; 
+                    $fotofile = $obj->fotofile;
+
+                    echo "<div class='col-10  mt-5'>";
+                      echo "<div class='row'>";
+                      echo "<div class='col-2'>";
+                      echo "<img class='img-fluid rounded-circle ml-3' src='$fotofile' alt='Avatar'>";
+                      echo "</div>";
+
+                      echo "<div class='col-9 ml-3'>";
+
+                        echo "<h5 class='font-weight-bold '>".$nombre." ".$apellidos."</h5>";
+                        echo $asunto;
+                        echo "<br>";
+                        echo $contenido;
+                      echo "</div>";
+                      echo "</div>";
+                    echo "</div>";
+                    
+
+            }  
+        }  
+        
+        ?>
+
 
         <div class="row">
-        <div class="col-2"></div>
+          <div class="col-2"></div>
+          <div class="col-5 mb-5 mt-5 ml-5">
+          <button type="button" class="btn btn-outline-info" onclick="myFunction()">Comentar</button>
+          </div>
 
-        <button type="button" class="btn btn-outline-info" onclick="myFunction()">Comentar</button>
-
-        <script>
-        function myFunction() {
-          alert("Debe iniciar sesion!");
-        }
-        </script>
-        
+          <script>
+            function myFunction() {
+              alert("Debe iniciar sesion!");
+            }
+          </script>
+          
+          
         </div>
-    </div>
 
-
-
-    </div>
     
     <?php    include ("includes/footer.php"); ?>
 
-   </div>
+  </div>
 
   </body>
 </html>

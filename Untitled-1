@@ -1,0 +1,90 @@
+<tr class="clases">
+            <th>9:00</th>
+            <td>PILATES</td>
+            <td>T-REX</td>
+            <td></td>
+            <td>BODYTONIC</td>
+            <td>TAICHI</td>
+            <td></td>
+          </tr>
+          <tr class="clases">
+            <th>10:00</th>
+            <td>RUNNING</td>
+            <td></td>
+            <td>T-REX</td>
+            <td>BODYTONIC</td>
+            <td>T-REX</td>
+            <td></td>
+          </tr>
+          <tr class="clases">
+            <th>11:00</th>
+            <td>PILATES</td>
+            <td>T-REX</td>
+            <td></td>
+            <td>BODYTONIC</td>
+            <td>TAICHI</td>
+            <td>RUNNING</td>
+          </tr>
+          <tr class="clases">
+            <th>12:00</th>
+            <td>RUNNING</td>
+            <td></td>
+            <td>T-REX</td>
+            <td>BODYTONIC</td>
+            <td>T-REX</td>
+            <td></td>
+          </tr>
+          <tr class="clases">
+            <th>13:00</th>
+            <td>PILATES</td>
+            <td>T-REX</td>
+            <td></td>
+            <td>BODYTONIC</td>
+            <td>TAICHI</td>
+            <td>RUNNING</td>
+          </tr>
+          <tr class="clases">
+            <th>16:00</th>
+            <td>PILATES</td>
+            <td>T-REX</td>
+            <td></td>
+            <td>BODYTONIC</td>
+            <td>TAICHI</td>
+            <td></td>
+          </tr>
+          <tr class="clases">
+            <th>17:00</th>
+            <td>PILATES</td>
+            <td>T-REX</td>
+            <td></td>
+            <td>BODYTONIC</td>
+            <td>TAICHI</td>
+            <td>RUNNING</td>
+          </tr>
+          <tr class="clases">
+            <th>18:00</th>
+            <td>PILATES</td>
+            <td>T-REX</td>
+            <td></td>
+            <td>BODYTONIC</td>
+            <td>TAICHI</td>
+            <td>RUNNING</td>
+          </tr>
+          <tr class="clases">
+            <th>19:00</th>
+            <td>RUNNING</td>
+            <td></td>
+            <td>T-REX</td>
+            <td>BODYTONIC</td>
+            <td>T-REX</td>
+            <td></td>
+          </tr>
+          <tr class="clases">
+            <th>20:00</th>
+            <td>RUNNING</td>
+            <td></td>
+            <td>T-REX</td>
+            <td>BODYTONIC</td>
+            <td>T-REX</td>
+            <td></td>
+          </tr>

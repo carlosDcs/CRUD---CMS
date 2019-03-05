@@ -29,7 +29,7 @@
 
         <div class="row justify-content-center" style="margin-bottom: 30px;">
 
-            <div class="col-8" style="margin-top: 45px;" >
+            <div class="col-10" style="margin-top: 45px;" >
                     
                 <div class="panel panel-info" style="font-size: 20px;">
 
@@ -51,7 +51,8 @@
                             exit();
                             }
 
-                            $query="SELECT nombre, apellidos,fecha, direccion, correo, numero FROM usuarios WHERE codusuario='".$_SESSION['cod']."'";
+                            $query="SELECT nombre, apellidos,fecha, direccion, correo, numero, claveacceso, fotofile 
+                                    FROM usuarios WHERE codusuario='".$_SESSION['cod']."'";
                                 
                             if ($result = $connection->query($query)) {
 
@@ -67,19 +68,30 @@
                                         $direccion=$obj->direccion;
                                         $correo=$obj->correo;
                                         $numero=$obj->numero;
+                                        $fotofile=$obj->fotofile;
+                                        $claveacceso=$obj->claveacceso;
                                     }  
                                 }   
                             }                       
                         ?>     
             
                             <div class=" col-md-9 col-lg-9 "> 
-                                <form method="post">
+                                <form method="post" enctype="multipart/form-data">
                                 <table class="table table-user-information">
                                     <tbody>
                                         <?php if (!isset($_POST["nombre"])) : ?>
                                         
                                             <h3 style="margin-bottom: 50px;">Datos Personales</h3>
                                             <tr>
+
+                                            <div class="row">
+                                                <div>
+                                                <img class='rounded-circle img-fluid mb-5' src='<?php echo $fotofile; ?>'>
+                                                </div>
+                                                <div class=" col-md-6 col-lg-6 mt-5">
+                                                    <input type="file" name="imagen" >
+                                                </div>
+                                            </div>
                                                 <td>Nombre:</td>
                                                 <td>
                                                     <input type="text" name="nombre" value="<?php echo $nombre; ?>" > 
@@ -118,6 +130,15 @@
                                                 </td>        
                                             </tr>
                                             <tr>
+                                                <td>
+                                                    <input type="password" name="pass" placeholder="contraseña">
+                                                </td>
+                                                <td>
+                                                    <input type="password" name="passconfirmation" placeholder="confirmar contraseña"> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                            <tr>
                                             <td></td>
 
                                                 <td>
@@ -125,11 +146,19 @@
                                                 </td>
                                             </tr>
 
+
                                             
                                 </form>
 
                                             <?php else: ?>
                                             <?php 
+
+                                            $file = $_FILES["imagen"]["tmp_name"];
+                                            $location = "prueba/";
+                                            $name = $_FILES["imagen"]["name"];
+
+                                            if (!move_uploaded_file( $file, $location . $_FILES["imagen"]["name"])) {               
+                                            };
                     
                                             $connection = new mysqli("localhost", "root", "Admin2015", "Proyecto_Impla");
                                             $connection->set_charset("uft8");
@@ -139,21 +168,26 @@
                                             exit();
                                             }
 
-                                            $query="UPDATE usuarios SET nombre='".$_POST['nombre']."',apellidos='".$_POST['apellidos']."',
-                                                                        fecha='".$_POST['fecha']."',direccion='".$_POST['direccion']."',
-                                                                        correo='".$_POST['correo']."',numero='".$_POST['numero']."'
-                                                                        WHERE codusuario = '".$_SESSION['cod']."';";
-                                            
+                                            if($_POST['pass']==$_POST['passconfirmation']) {
 
-                                            if ($result = $connection->query($query)) {
-                                                echo "<center>";
-                                                print "<img src=\"imagenes/userupdate.png\">" ;
-                                                echo "<br>";
-                                                echo "Tus datos se han actualizado";
-                                                echo "</center>";
-                                                
+                                                $query="UPDATE usuarios SET nombre='".$_POST['nombre']."',apellidos='".$_POST['apellidos']."',
+                                                                            fecha='".$_POST['fecha']."',direccion='".$_POST['direccion']."',
+                                                                            correo='".$_POST['correo']."',numero='".$_POST['numero']."', 
+                                                                            fotofile='prueba/$name',claveacceso = md5('".$_POST['pass']."')
+                                                                            WHERE codusuario = '".$_SESSION['cod']."'";
+
+
+
+                                                if ($result = $connection->query($query)) {
+                                                    echo "<center>";
+                                                    print "<img src=\'imagenes/userupdate.png\'>" ;
+                                                    echo "<br>";
+                                                    echo "Tus datos se han actualizado";
+                                                    echo "</center>";
+                                                    
+                                                }
                                             }
-                                       
+
                                             ?>
 
                                             <?php endif ?>  

@@ -25,7 +25,7 @@
 
    <div class="container">
        
-   <?php    include ("includes/cabecera-cliente.php"); ?>
+   <?php    include ("includes/cabera-admin.php"); ?>
 
         <div class="row justify-content-center" style="margin-bottom: 30px;">
 

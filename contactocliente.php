@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 
   <body class="body">
@@ -56,11 +57,11 @@
                 exit();
                 }
 
-                $query="SELECT u.nombre, u.apellidos, u.correo, m.asunto, m.contenido 
-                        FROM usuarios u JOIN mensajes m 
-                        ON u.codusuario = m.codusuario
-                        WHERE u.codusuario='".$_SESSION['cod']."'";
-                    
+                $query="SELECT nombre, apellidos, correo
+                        FROM usuarios 
+                        WHERE codusuario='".$_SESSION['cod']."'";
+
+
                 if ($result = $connection->query($query)) {
 
                     if($result->num_rows==0) {
@@ -72,11 +73,13 @@
                             $nombre=$obj->nombre;
                             $apellidos=$obj->apellidos;
                             $correo=$obj->correo;
-                            $claveacceso=$obj->claveacceso;
                         }  
                     }   
                 }                       
                 ?>
+
+
+                <?php if(!isset($_POST['name'])) : ?>
 
                         <form class="form-horizontal" method="post">
                             <fieldset>
@@ -84,43 +87,71 @@
 
                                     <div class="form-group">
                                         <div class="col-md-8">
-                                            <input name="name" type="text" value="<?php echo $nombre ?>" class="form-control">
+                                            <input style="color:black;" name="name" type="text" value="<?php echo $nombre ?>" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         
                                         <div class="col-md-8">
-                                            <input name="name" type="text" value="<?php echo $apellidos ?>" class="form-control">
+                                            <input style="color:black;" name="lastname" type="text" value="<?php echo $apellidos ?>" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-envelope-o"></i></span>
+                                        <span class="col-md-1 col-md-2 text-center"></span>
                                         <div class="col-md-8">
-                                            <input name="email" type="text" value="<?php echo $correo ?>" class="form-control">
+                                            <input style="color:black;" name="email" type="text" value="<?php echo $correo ?>" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-md-8">
-                                            <input name="asunto" type="text" class="form-control">
+                                            <input style="color:black;" name="asunto" type="text" placeholder="Asunto" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-pencil-square-o"></i></span>
+                                        <span class="col-md-1 col-md-offset-2 text-center"></span>
                                         <div class="col-md-8">
-                                            <textarea class="form-control" id="message" name="message" placeholder="Enter your massage for us here. We will get back to you within 2 business days." rows="7"></textarea>
+                                            <textarea style="color:black;" class="form-control" name="contenido" placeholder="Enter your massage for us here. We will get back to you within 2 business days." rows="7"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-md-12 text-center">
-                                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                            <button type="submit" class="btn btn-primary btn-lg" onclick="myFunction()">Enviar</button>
+                                            
+                                            <script>
+                                                function myFunction() {
+                                                    alert("Comentario enviando con exito!");
+                                                }
+                                            </script>
                                         </div>
                                     </div>
                             </fieldset>
                         </form>
+
+                        <?php else : ?>
+
+                        <?php
+
+                        $asunto = $_POST['asunto'];
+                        $contenido = $_POST['contenido'];
+                        $cod = $_SESSION['cod'];
+
+                        $query="INSERT INTO mensajes(codusuario,asunto,contenido,fecha) 
+                                VALUES('$cod','$asunto',' $contenido',now())";
+
+                        if ($result = $connection->query($query)) {
+
+                             header("Location: contactocliente.php");
+        
+ 
+                        }      
+
+                        ?>
+
+                        <?php  endif ?>
             </div>  
         </div>
     
