@@ -12,6 +12,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 
 <body class="body">
@@ -153,8 +154,10 @@
                                             <?php else: ?>
                                             <?php 
 
+                                            if (($_FILES['imagen']['size']) != 0 ) {
+
                                             $file = $_FILES["imagen"]["tmp_name"];
-                                            $location = "prueba/";
+                                            $location = "imagenes/";
                                             $name = $_FILES["imagen"]["name"];
 
                                             if (!move_uploaded_file( $file, $location . $_FILES["imagen"]["name"])) {               
@@ -173,7 +176,39 @@
                                                 $query="UPDATE usuarios SET nombre='".$_POST['nombre']."',apellidos='".$_POST['apellidos']."',
                                                                             fecha='".$_POST['fecha']."',direccion='".$_POST['direccion']."',
                                                                             correo='".$_POST['correo']."',numero='".$_POST['numero']."', 
-                                                                            fotofile='prueba/$name',claveacceso = md5('".$_POST['pass']."')
+                                                                            fotofile='imagenes/$name',claveacceso = md5('".$_POST['pass']."')
+                                                                            WHERE codusuario = '".$_SESSION['cod']."'";
+
+
+
+                                                if ($result = $connection->query($query)) {
+                                                    echo "<center>";
+                                                    print "<i class='fas fa-check-circle'></i>" ;
+                                                    
+                                                    echo "<br>";
+                                                    echo "Tus datos se han actualizado";
+                                                    echo "</center>";
+                                                    
+                                                }
+                                            }
+
+                                        }
+                                        else {
+
+                                            $connection = new mysqli("localhost", "root", "Admin2015", "Proyecto_Impla");
+                                            $connection->set_charset("uft8");
+
+                                            if ($connection->connect_errno) {
+                                                printf("Connection failed: %s\n", $connection->connect_error);
+                                            exit();
+                                            }
+
+                                            if($_POST['pass']==$_POST['passconfirmation']) {
+
+                                                $query="UPDATE usuarios SET nombre='".$_POST['nombre']."',apellidos='".$_POST['apellidos']."',
+                                                                            fecha='".$_POST['fecha']."',direccion='".$_POST['direccion']."',
+                                                                            correo='".$_POST['correo']."',numero='".$_POST['numero']."', 
+                                                                            claveacceso = md5('".$_POST['pass']."')
                                                                             WHERE codusuario = '".$_SESSION['cod']."'";
 
 
@@ -187,6 +222,10 @@
                                                     
                                                 }
                                             }
+
+
+                                        }
+                                        
 
                                             ?>
 

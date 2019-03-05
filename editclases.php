@@ -58,7 +58,6 @@
                                
                     while($obj = $result->fetch_object()) { 
 
-                        $cod = $obj->codmonitor;
                         $actividad = $obj->actividad;
                         $nombre = $obj->nombre;
                         $apellidos = $obj->apellidos;
@@ -78,7 +77,7 @@
                                         echo "<input class='form-control' type='text' name='actividad' value='$obj->actividad' required>";
                                     echo "</div>";
                                     echo "<div class='col-6'>";
-                                        echo "<select class='form-control' name='select'>";
+                                        echo "<select class='form-control' name='codmon'>";
                                         echo "<option value='$codmonitor' class='form-control' type='text' selected>" .$nombre." ".$apellidos." </option>";
                                         
                                         $query2 = "SELECT * FROM monitores where codmonitor != $codmonitor";
@@ -87,10 +86,11 @@
 
                                            while ($obj2 = $result2->fetch_object()) {
 
-                                            $nombre2 = $obj->nombre;
-                                            $apellidos2 = $obj->apellidos;
+                                            $nombre2 = $obj2->nombre;
+                                            $apellidos2 = $obj2->apellidos;
+                                            $cod = $obj2->codmonitor;
 
-                                            echo "<option value='$codmonitor' class='form-control' type='text'>" .$nombre2." ".$apellidos2." </option>";
+                                            echo "<option value='$cod' class='form-control' type='text'>" .$nombre2." ".$apellidos2." </option>";
 
                                            }
 

@@ -15,6 +15,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!------ Include the above in your HEAD tag ---------->
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="#" crossorigin="anonymous">
@@ -38,12 +39,99 @@
 
       <div class="row fondoadmin">
 
-        
-   
-             
+      <?php    include ("numusers.php"); ?>
+      <?php    include ("numclases.php"); ?>
+      <?php    include ("nummonitores.php"); ?>
+      <?php    include ("nummensajes.php"); ?>
+      <?php    include ("usuariomasactivo.php"); ?>
+
+      <div class="col-3">
+
+        <div class="card my-5">
+          <div class="card-header">Número de Usuarios:</div>    
+          <div class="card-body">
+              <h1><?php   echo $numusers;  ?></h1>
+              <i class="fas fa-users fa-5x float-right"></i>
+          </div>    
+        </div>   
+
+        <div class="card">
+          <div class="card-header">Número de Mensajes:</div>    
+          <div class="card-body">
+              <h1><?php   echo $nummen;  ?></h1>
+              <i class="fas fa-envelope fa-5x  float-right"></i>
+          </div>    
+        </div>      
+      
       </div>
+
+      <div class="col-3">
+      
+        <div class="card my-5">
+            <div class="card-header">Número de Monitores:</div>    
+            <div class="card-body">
+                <h1><?php   echo $nummon;  ?></h1>
+                <i class="fas fa-user-shield fa-5x float-right"></i>
+            </div>    
+          </div>   
+
+          <div class="card">
+            <div class="card-header">Número de Clases:</div>    
+            <div class="card-body">
+                <h1><?php   echo $numclas;  ?></h1>
+                <i class="fas fa-calendar-alt fa-5x float-right"></i>
+            </div>    
+        </div>      
+        
+      </div>
+
+      <div class="col-5 my-5">
+              
+        <div class="card my-5">
+            <div class="card-header">Clientes con mayor actividad:</div>    
+            <div class="card-body">
+
+              <div class="row my-3">
+                <div class="col-10">
+                  <h4><?php  echo "Usuario con mas mensajes :"; ?>  </h4> 
+                  <h6><?php  echo $nombre." ".$apellidos; ?>  </h6>
+                  <br>
+                </div>
+                <div class="col-2">
+                  <i class="fas fa-user-graduate fa-5x float-right"></i>
+                </div>
+              </div>
+
+              <div class="row my-3">
+                <div class="col-10">
+                  <h4><?php  echo "Usuario más en forma :"; ?>  </h4> 
+                  <h6><?php  echo $nombreuser." ".$apellidosuser; ?>  </h6>
+                  <br>
+                </div>
+                <div class="col-2">
+                  <i class="fas fa-user-clock fa-4x float-right"></i>
+                </div>
+              </div>
+
+              <div class="row my-3">
+                <div class="col-10">
+                  <h4><?php  echo "Nuestro profesional más dedicado :"; ?>  </h4> 
+                  <h6><?php  echo $nombremonitor." ".$apellidosmonitor; ?>  </h6>
+                  <br>
+                </div>
+                <div class="col-2">
+                  <i class="fas fa-user-tie fa-5x float-right"></i>
+                </div>
+              </div>
+
+            </div>    
+        </div> 
+        
+      </div>
+
+     </div>
     
-      <?php    include ("includes/footer.php"); ?>
+    <?php    include ("includes/footer.php"); ?>
 
    </div>
 
