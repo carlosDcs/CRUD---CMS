@@ -107,7 +107,7 @@
                                             <tr>
                                                 <td>Fecha de Nacimiento</td>
                                                 <td>
-                                                    <input type="text" name="fecha" value="<?php echo $fecha; ?>" > 
+                                                    <input type="date" name="fecha" value="<?php echo $fecha; ?>" > 
                                                 </td>
                                             </tr>
 
@@ -129,14 +129,6 @@
                                                 <td>
                                                     <input type="text" name="numero" value="<?php echo $numero; ?>" > 
                                                 </td>        
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="password" name="pass" placeholder="contraseña">
-                                                </td>
-                                                <td>
-                                                    <input type="password" name="passconfirmation" placeholder="confirmar contraseña"> 
-                                                </td>
                                             </tr>
                                             <tr>
                                             <tr>
@@ -171,26 +163,26 @@
                                             exit();
                                             }
 
-                                            if($_POST['pass']==$_POST['passconfirmation']) {
+                                            
 
                                                 $query="UPDATE usuarios SET nombre='".$_POST['nombre']."',apellidos='".$_POST['apellidos']."',
                                                                             fecha='".$_POST['fecha']."',direccion='".$_POST['direccion']."',
                                                                             correo='".$_POST['correo']."',numero='".$_POST['numero']."', 
-                                                                            fotofile='imagenes/$name',claveacceso = md5('".$_POST['pass']."')
+                                                                            fotofile='imagenes/$name'
                                                                             WHERE codusuario = '".$_SESSION['cod']."'";
 
 
 
                                                 if ($result = $connection->query($query)) {
                                                     echo "<center>";
-                                                    print "<i class='fas fa-check-circle'></i>" ;
+                                                    echo "<i class='fas fa-check'></i>" ;
                                                     
                                                     echo "<br>";
                                                     echo "Tus datos se han actualizado";
                                                     echo "</center>";
                                                     
                                                 }
-                                            }
+                                            
 
                                         }
                                         else {
@@ -203,27 +195,23 @@
                                             exit();
                                             }
 
-                                            if($_POST['pass']==$_POST['passconfirmation']) {
-
+                                            
                                                 $query="UPDATE usuarios SET nombre='".$_POST['nombre']."',apellidos='".$_POST['apellidos']."',
                                                                             fecha='".$_POST['fecha']."',direccion='".$_POST['direccion']."',
-                                                                            correo='".$_POST['correo']."',numero='".$_POST['numero']."', 
-                                                                            claveacceso = md5('".$_POST['pass']."')
+                                                                            correo='".$_POST['correo']."',numero='".$_POST['numero']."'
                                                                             WHERE codusuario = '".$_SESSION['cod']."'";
 
 
 
                                                 if ($result = $connection->query($query)) {
                                                     echo "<center>";
-                                                    print "<img src=\'imagenes/userupdate.png\'>" ;
+                                                    echo "<i class='fas fa-check'></i>";
                                                     echo "<br>";
                                                     echo "Tus datos se han actualizado";
                                                     echo "</center>";
                                                     
                                                 }
-                                            }
-
-
+                                            
                                         }
                                         
 
